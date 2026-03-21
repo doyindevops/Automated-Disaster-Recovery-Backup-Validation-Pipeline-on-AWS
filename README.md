@@ -1,1 +1,1 @@
-# Automated-Disaster-Recovery-Backup-Validation-Pipeline-on-AWS
+Automated AWS RDS backup and restore validation pipeline using Terraform, Lambda, EventBridge, CloudWatch, and SNS, including snapshot scheduling, failure alerting, and restore testing with temporary database recovery.# Automated-Disaster-Recovery-Backup-Validation-Pipeline-on-AWS
