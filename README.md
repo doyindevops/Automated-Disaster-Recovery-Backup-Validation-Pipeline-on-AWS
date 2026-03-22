@@ -1,4 +1,4 @@
-# Automated RDS Backup & Restore Validation Pipeline on AWS
+# 🛡️ Automated RDS Backup & Restore Validation Pipeline on AWS
 
 ## Overview
 
