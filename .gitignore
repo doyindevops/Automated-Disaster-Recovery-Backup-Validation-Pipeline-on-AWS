@@ -1,0 +1,5 @@
+rds-dr-pipeline/terraform/.terraform/
+rds-dr-pipeline/terraform/terraform.tfstate
+rds-dr-pipeline/terraform/terraform.tfstate.*
+rds-dr-pipeline/terraform/*.tfvars
+rds-dr-pipeline/lambda/**/*.zip
