@@ -18,7 +18,12 @@ The solution includes automated RDS snapshot creation, scheduled execution with 
 - Control cost by deleting temporary restore infrastructure after validation
 - Provision the environment with Terraform
 
-## Architecture
+## Architecture Diagram
+
+## Architecture Diagram
+
+![alt text](image.png)
+This architecture shows how Terraform provisions the AWS resources, EventBridge schedules the backup workflow, Lambda creates manual RDS snapshots, CloudWatch monitors execution, SNS sends failure alerts, and restore validation is performed using a temporary PostgreSQL instance before cleanup.
 
 The project uses the following AWS services:
 
@@ -30,92 +35,6 @@ The project uses the following AWS services:
 - **Terraform** for infrastructure provisioning
 
 
-```md
-## Architecture Diagram
-
-Terraform
-   |
-   +-- VPC
-   +-- Public/Private Subnets
-   +-- RDS PostgreSQL
-   +-- Lambda Snapshot Function
-   +-- EventBridge Schedule
-   +-- CloudWatch Alarm
-   +-- SNS Topic
-
-EventBridge
-   |
-   v
-Lambda Snapshot Function
-   |
-   +-- Creates manual RDS snapshot
-   +-- Writes logs to CloudWatch
-
-CloudWatch Logs / Metrics
-   |
-   v
-CloudWatch Alarm
-   |
-   v
-SNS Email Notification
-
-Latest RDS Snapshot
-   |
-   v
-Restore Validation
-   |
-   v
-Temporary Restore-Test DB
-   |
-   +-- Validate recoverability
-   +-- Capture evidence
-   +-- Delete DB to control cost
-
-
-
-## Architecture Diagram
-
-```mermaid
-flowchart LR
-    subgraph Provisioning
-        A[Terraform]
-        B[VPC]
-        C[Subnets]
-        D[RDS PostgreSQL]
-        E[Lambda Function]
-        F[EventBridge Rule]
-        G[CloudWatch Alarm]
-        H[SNS Topic]
-    end
-
-    subgraph Backup_Workflow
-        F --> E
-        E --> D
-        E --> I[Manual Snapshot]
-        E --> J[CloudWatch Logs]
-    end
-
-    subgraph Monitoring
-        J --> G
-        G --> H
-        H --> K[Email Notification]
-    end
-
-    subgraph Recovery_Validation
-        I --> L[Restore Latest Snapshot]
-        L --> M[Temporary Restore-Test DB]
-        M --> N[Recovery Validation]
-        M --> O[Delete Temporary DB]
-    end
-
-    A --> B
-    A --> C
-    A --> D
-    A --> E
-    A --> F
-    A --> G
-    A --> H
-```
 
 ## Workflow
 
