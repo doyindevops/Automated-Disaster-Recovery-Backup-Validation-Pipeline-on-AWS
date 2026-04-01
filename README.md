@@ -31,6 +31,50 @@ The project uses the following AWS services:
 
 
 ```md
+## Architecture Diagram
+
+Terraform
+   |
+   +-- VPC
+   +-- Public/Private Subnets
+   +-- RDS PostgreSQL
+   +-- Lambda Snapshot Function
+   +-- EventBridge Schedule
+   +-- CloudWatch Alarm
+   +-- SNS Topic
+
+EventBridge
+   |
+   v
+Lambda Snapshot Function
+   |
+   +-- Creates manual RDS snapshot
+   +-- Writes logs to CloudWatch
+
+CloudWatch Logs / Metrics
+   |
+   v
+CloudWatch Alarm
+   |
+   v
+SNS Email Notification
+
+Latest RDS Snapshot
+   |
+   v
+Restore Validation
+   |
+   v
+Temporary Restore-Test DB
+   |
+   +-- Validate recoverability
+   +-- Capture evidence
+   +-- Delete DB to control cost
+
+
+
+## Architecture Diagram
+
 ```mermaid
 flowchart LR
     subgraph Provisioning
@@ -71,9 +115,9 @@ flowchart LR
     A --> F
     A --> G
     A --> H
+```
 
-    
-### Workflow
+## Workflow
 
 1. Terraform provisions the networking, RDS instance, SNS topic, Lambda function, EventBridge rule, and CloudWatch alarm.
 2. EventBridge triggers the Lambda function on a schedule.
