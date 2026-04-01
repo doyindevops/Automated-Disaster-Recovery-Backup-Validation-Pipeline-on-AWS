@@ -29,6 +29,50 @@ The project uses the following AWS services:
 - **Amazon SNS** for email alerting
 - **Terraform** for infrastructure provisioning
 
+
+```md
+```mermaid
+flowchart LR
+    subgraph Provisioning
+        A[Terraform]
+        B[VPC]
+        C[Subnets]
+        D[RDS PostgreSQL]
+        E[Lambda Function]
+        F[EventBridge Rule]
+        G[CloudWatch Alarm]
+        H[SNS Topic]
+    end
+
+    subgraph Backup_Workflow
+        F --> E
+        E --> D
+        E --> I[Manual Snapshot]
+        E --> J[CloudWatch Logs]
+    end
+
+    subgraph Monitoring
+        J --> G
+        G --> H
+        H --> K[Email Notification]
+    end
+
+    subgraph Recovery_Validation
+        I --> L[Restore Latest Snapshot]
+        L --> M[Temporary Restore-Test DB]
+        M --> N[Recovery Validation]
+        M --> O[Delete Temporary DB]
+    end
+
+    A --> B
+    A --> C
+    A --> D
+    A --> E
+    A --> F
+    A --> G
+    A --> H
+
+    
 ### Workflow
 
 1. Terraform provisions the networking, RDS instance, SNS topic, Lambda function, EventBridge rule, and CloudWatch alarm.
@@ -112,7 +156,7 @@ Each phase includes its own screenshot evidence folder for easier review.
 - [Phase 4 Evidence](rds-dr-pipeline/docs/screenshots/phase-4/README.md)
 - [Phase 5 Evidence](rds-dr-pipeline/docs/screenshots/phase-5/README.md)
 
-Very important
+
 ## Lessons Learned
 
 - Backups are not enough unless restores are tested
@@ -136,4 +180,3 @@ To avoid unnecessary cost:
 - Add a more detailed operational runbook
 - Add architecture diagrams
 - Extend validation to include database connectivity checks
-_
