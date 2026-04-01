@@ -104,36 +104,15 @@ For this demo project, I used the following recovery targets:
 
 ## Evidence and Screenshots
 
-### Phase 1
-Add screenshots from:
-- Terraform apply success
-- RDS instance
-- VPC
-- SNS topic
+Each phase includes its own screenshot evidence folder for easier review.
 
-### Phase 2
-Add screenshots from:
-- Lambda overview
-- Lambda test success
-- CloudWatch logs
-- RDS manual snapshot
-- EventBridge rule
+- [Phase 1 Evidence](rds-dr-pipeline/docs/screenshots/phase-1/README.md)
+- [Phase 2 Evidence](rds-dr-pipeline/docs/screenshots/phase-2/README.md)
+- [Phase 3 Evidence](rds-dr-pipeline/docs/screenshots/phase-3/README.md)
+- [Phase 4 Evidence](rds-dr-pipeline/docs/screenshots/phase-4/README.md)
+- [Phase 5 Evidence](rds-dr-pipeline/docs/screenshots/phase-5/README.md)
 
-### Phase 3
-Add screenshots from:
-- CloudWatch alarm details
-- Lambda failed test
-- Lambda working again after fix
-- SNS action configuration
-- SNS email alert
-
-### Phase 4
-Add screenshots from:
-- Restored DB details
-- Restored DB available
-- Original and restored DB side by side
-- Optional restore-test DB deletion evidence
-
+Very important
 ## Lessons Learned
 
 - Backups are not enough unless restores are tested
@@ -157,3 +136,4 @@ To avoid unnecessary cost:
 - Add a more detailed operational runbook
 - Add architecture diagrams
 - Extend validation to include database connectivity checks
+_
