@@ -20,9 +20,7 @@ The solution includes automated RDS snapshot creation, scheduled execution with 
 
 ## Architecture Diagram
 
-## Architecture Diagram
-
-![alt text](![alt text](image-1.png))
+![alt text](image-1.png)
 This architecture shows how Terraform provisions the AWS resources, EventBridge schedules the backup workflow, Lambda creates manual RDS snapshots, CloudWatch monitors execution, SNS sends failure alerts, and restore validation is performed using a temporary PostgreSQL instance before cleanup.
 
 The project uses the following AWS services:
